@@ -12,7 +12,7 @@ const BackgroundContainer = styled.div`
 `;
 
 const FormContainer = styled.div`
-  background: white;
+  background-color: rgba(239, 250, 254, 0.8); /* Increase transparency */
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -76,7 +76,7 @@ const Form: React.FC = () => {
   return (
     <BackgroundContainer>
       <FormContainer>
-        <Title>Generate Bank Proof</Title>
+        <Title>BANK PROOF</Title>
         <FormGroup>
           <Label>Name</Label>
           <Input
@@ -109,7 +109,7 @@ const Form: React.FC = () => {
             onChange={(e) => setIfsc(e.target.value)}
           />
         </FormGroup>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit}>Generate</Button>
       </FormContainer>
     </BackgroundContainer>
   );
