@@ -7,13 +7,13 @@ import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Sidebar = styled.div`
-  width: 240px; // Increase the width for a more spacious design
-  height: 94vh;
-  background-color: #3a7bd5; // Use a different color for a fresh look
+  width: 260px; // Increase the width for a more spacious design
+  height: 92vh;
+  background-color: #1c3b72; // Use a different color for a fresh look
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 30px 0; // Increase the padding for a more spacious design
+  padding: 40px 20px; // Increase the padding for a more spacious design
   position: relative;
   box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2); // Use a darker box-shadow for more depth
 `;
@@ -28,8 +28,9 @@ const LogoContainer = styled.div`
 `;
 
 const IconWrapper = styled.span`
-  margin-right: 10px; /* Adjust icon margin */
-  padding-top: 40px;
+  margin-right: 15px; /* Adjust icon margin */
+  display: flex;
+  align-items: center; /* Center icons vertically */
 `;
 
 const NavLink = styled.a`
@@ -41,8 +42,8 @@ const NavLink = styled.a`
   font-family: "Prata", serif; // Apply Prata font
   transition: all 0.3s ease;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  justify-content: flex-start; /* Align items to the right */
-  padding-left: 40px; /* Add padding to the left */
+  display: flex; // Use flex to align items horizontally
+  align-items: center; // Center items vertically
 
   &:hover {
     color: #ffffff;
@@ -52,15 +53,16 @@ const NavLink = styled.a`
 
 const LoginIcon = styled.div`
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 30px;
+  right: 20%;
+  transform: translateX(-50%);
   color: #d2e8fb; /* Adjusted icon color */
-  font-size: 24px;
+  font-size: 24px; // Increase icon size for better visibility
   cursor: pointer;
   transition: all 0.3s ease; /* Smooth transition on hover */
 
   &:hover {
-    transform: scale(1.1); /* Scale up on hover */
+    transform: scale(1.2); /* Scale up on hover */
   }
 `;
 
