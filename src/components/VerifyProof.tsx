@@ -154,7 +154,7 @@ const VerifyProof: React.FC = () => {
     <BackgroundContainer>
       <ProofContainer>
         {isLoading && <LoadingOverlay>Verifying Proof...</LoadingOverlay>}
-        <Title>Verify Proof</Title>
+        <Title>Bank Proof</Title>
         {proof ? (
           <div>
             <ProofItem>

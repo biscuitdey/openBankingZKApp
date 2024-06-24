@@ -86,7 +86,7 @@ const StoredProof: React.FC = () => {
   return (
     <BackgroundContainer>
       <ProofContainer>
-        <Title>Stored Proof</Title>
+        <Title>Bank Proof</Title>
         {proof ? (
           <div>
             <ProofItem>
