@@ -1,49 +1,50 @@
 import styled from "styled-components";
 import React, { ReactNode } from "react";
-import Image from "next/image"; // Import the Image component from Next.js
-import { FaSignInAlt, FaHome, FaCheck, FaLock } from "react-icons/fa";
+import Image from "next/image";
+import Link from "next/link";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 
 const Sidebar = styled.div`
-  width: 260px; // Increase the width for a more spacious design
-  height: 92vh;
-  background-color: #1c3b72; // Use a different color for a fresh look
+  width: 260px;
+  height: 91vh;
+  background-color: #1c3b72;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px 20px; // Increase the padding for a more spacious design
+  padding: 40px 20px;
   position: relative;
-  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2); // Use a darker box-shadow for more depth
+  box-shadow: 3px 0 15px rgba(0, 0, 0, 0.2);
 `;
 
 const LogoContainer = styled.div`
-  width: 190px; /* Reduced size for better proportion */
+  width: 190px;
   height: 190px;
-  margin-bottom: 40px; /* Slightly reduced margin */
+  margin-bottom: 40px;
   margin-top: -20px;
   position: relative;
   margin-left: 20px;
 `;
 
 const IconWrapper = styled.span`
-  margin-right: 15px; /* Adjust icon margin */
+  margin-right: 15px;
   display: flex;
-  align-items: center; /* Center icons vertically */
+  align-items: center;
 `;
 
 const NavLink = styled.a`
-  color: rgba(234, 247, 255, 0.85); // Use a lighter color for better contrast
-  margin: 20px 0; // Increase the margin for a more spacious design
+  color: rgba(234, 247, 255, 0.85);
+  margin: 20px 0;
   cursor: pointer;
   text-decoration: none;
-  font-size: 20px; // Increase the font size for better readability
-  font-family: "Prata", serif; // Apply Prata font
+  font-size: 20px;
+  font-family: "Prata", serif;
   transition: all 0.3s ease;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-  display: flex; // Use flex to align items horizontally
-  align-items: center; // Center items vertically
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: #ffffff;
@@ -56,13 +57,13 @@ const LoginIcon = styled.div`
   bottom: 30px;
   right: 20%;
   transform: translateX(-50%);
-  color: #d2e8fb; /* Adjusted icon color */
-  font-size: 24px; // Increase icon size for better visibility
+  color: #d2e8fb;
+  font-size: 24px;
   cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition on hover */
+  transition: all 0.3s ease;
 
   &:hover {
-    transform: scale(1.2); /* Scale up on hover */
+    transform: scale(1.2);
   }
 `;
 
@@ -94,28 +95,32 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             objectFit="contain"
           />
         </LogoContainer>
-
-        <NavLink>
-          <IconWrapper>
-            <HomeOutlinedIcon sx={{ fontSize: 30 }} />
-          </IconWrapper>
-          Home
-        </NavLink>
-        <NavLink>
-          <IconWrapper>
-            <CheckOutlinedIcon sx={{ fontSize: 30 }} />
-          </IconWrapper>
-          Verify Proof
-        </NavLink>
-        <NavLink>
-          <IconWrapper>
-            <LockOutlinedIcon sx={{ fontSize: 30 }} />
-          </IconWrapper>
-          Stored Proof
-        </NavLink>
-
+        <Link href="/" passHref>
+          <NavLink>
+            <IconWrapper>
+              <HomeOutlinedIcon sx={{ fontSize: 30 }} />
+            </IconWrapper>
+            Home
+          </NavLink>
+        </Link>
+        <Link href="/verify-proof" passHref>
+          <NavLink>
+            <IconWrapper>
+              <CheckOutlinedIcon sx={{ fontSize: 30 }} />
+            </IconWrapper>
+            Verify Proof
+          </NavLink>
+        </Link>
+        <Link href="/stored-proof" passHref>
+          <NavLink>
+            <IconWrapper>
+              <LockOutlinedIcon sx={{ fontSize: 30 }} />
+            </IconWrapper>
+            Stored Proof
+          </NavLink>
+        </Link>
         <LoginIcon>
-          <FaSignInAlt />
+          <LoginOutlinedIcon />
         </LoginIcon>
       </Sidebar>
       <Main>{children}</Main>
