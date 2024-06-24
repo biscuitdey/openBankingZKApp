@@ -69,19 +69,43 @@ const TableCell = styled.td`
   color: #333;
 `;
 
+const Button = styled.button`
+  background-color: #001f54;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  align-self: center;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #003b80;
+  }
+`;
+
 const StoredProof: React.FC = () => {
   const [proof, setProof] = useState<any>(null);
+  const [publicKey, setPublicKey] = useState<any>(null);
 
   useEffect(() => {
     async function fetchData() {
       const storedProof = await getItemInLocalStorage("publicWitness");
-      console.log(storedProof);
-      if (typeof storedProof === "string") {
+      const publicKey = await getItemInLocalStorage("publicKey");
+      if (typeof storedProof === "string" && typeof publicKey === "string") {
         setProof(JSON.parse(storedProof));
+        setPublicKey(publicKey);
       }
     }
     fetchData();
   }, []);
+
+  const handleSend = () => {
+    // Implement the send logic here
+    console.log("Send button clicked");
+  };
 
   return (
     <BackgroundContainer>
@@ -90,17 +114,12 @@ const StoredProof: React.FC = () => {
         {proof ? (
           <div>
             <ProofItem>
-              <Label>Public Inputs:</Label>
+              <Label> Customer Information :</Label>
               <JsonDisplay>
                 {JSON.stringify(proof.publicInputs, null, 2)}
               </JsonDisplay>
             </ProofItem>
-            <ProofItem>
-              <Label>Public Verification Key:</Label>
-              <JsonDisplay>
-                {JSON.stringify(proof.verificationKey, null, 2)}
-              </JsonDisplay>
-            </ProofItem>
+            <Button onClick={handleSend}>Send</Button>
           </div>
         ) : (
           <div>No proof stored</div>

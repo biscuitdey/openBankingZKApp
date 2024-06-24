@@ -92,6 +92,7 @@ const LoadingOverlay = styled.div`
 
 const VerifyProof: React.FC = () => {
   const [proof, setProof] = useState<any>(null);
+  const [publicKey, setPublicKey] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [verificationResult, setVerificationResult] = useState<string | null>(
     null
@@ -102,9 +103,10 @@ const VerifyProof: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       const storedProof = await getItemInLocalStorage("publicWitness");
-      console.log(storedProof);
-      if (typeof storedProof === "string") {
+      const publicKey = await getItemInLocalStorage("publicKey");
+      if (typeof storedProof === "string" && typeof publicKey === "string") {
         setProof(JSON.parse(storedProof));
+        setPublicKey(publicKey);
       }
     }
     fetchData();
@@ -113,13 +115,12 @@ const VerifyProof: React.FC = () => {
   const handleVerify = async () => {
     setIsLoading(true);
 
-    const publicKey = await getItemInLocalStorage("publicKey");
     const body = {
       publicWitness: {
         publicInputs: proof.publicInputs,
         verificationKey: proof.verificationKey,
       },
-      publicKey,
+      publicKey: publicKey,
     };
 
     try {
@@ -158,16 +159,14 @@ const VerifyProof: React.FC = () => {
         {proof ? (
           <div>
             <ProofItem>
-              <Label>Public Inputs:</Label>
+              <Label> Customer Information :</Label>
               <JsonDisplay>
                 {JSON.stringify(proof.publicInputs, null, 2)}
               </JsonDisplay>
             </ProofItem>
             <ProofItem>
-              <Label>Public Verification Key:</Label>
-              <JsonDisplay>
-                {JSON.stringify(proof.verificationKey, null, 2)}
-              </JsonDisplay>
+              <Label>Public Key:</Label>
+              <JsonDisplay>{publicKey}</JsonDisplay>
             </ProofItem>
             {verificationResult && (
               <ProofItem>
