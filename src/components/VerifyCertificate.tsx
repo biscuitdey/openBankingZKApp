@@ -19,7 +19,7 @@ const Title = styled.h2`
   color: #060640;
 `;
 
-const ProofContainer = styled.div`
+const CertificateContainer = styled.div`
   position: relative;
   background-color: rgba(239, 250, 254, 0.8);
   padding: 40px;
@@ -29,7 +29,7 @@ const ProofContainer = styled.div`
   align-items: center;
 `;
 
-const ProofItem = styled.div`
+const CertificateItem = styled.div`
   margin-bottom: 10px;
 `;
 
@@ -90,8 +90,8 @@ const LoadingOverlay = styled.div`
   border-radius: 8px;
 `;
 
-const VerifyProof: React.FC = () => {
-  const [proof, setProof] = useState<any>(null);
+const VerifyCertificate: React.FC = () => {
+  const [certificate, setCertificate] = useState<any>(null);
   const [publicKey, setPublicKey] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [verificationResult, setVerificationResult] = useState<string | null>(
@@ -102,10 +102,13 @@ const VerifyProof: React.FC = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const storedProof = await getItemInLocalStorage("publicWitness");
+      const storedCertificate = await getItemInLocalStorage("publicWitness");
       const publicKey = await getItemInLocalStorage("publicKey");
-      if (typeof storedProof === "string" && typeof publicKey === "string") {
-        setProof(JSON.parse(storedProof));
+      if (
+        typeof storedCertificate === "string" &&
+        typeof publicKey === "string"
+      ) {
+        setCertificate(JSON.parse(storedCertificate));
         setPublicKey(publicKey);
       }
     }
@@ -117,14 +120,14 @@ const VerifyProof: React.FC = () => {
 
     const body = {
       publicWitness: {
-        publicInputs: proof.publicInputs,
-        verificationKey: proof.verificationKey,
+        publicInputs: certificate.publicInputs,
+        verificationKey: certificate.verificationKey,
       },
       publicKey: publicKey,
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:4000/proof/verify", {
+      const response = await fetch("http://127.0.0.1:4000/certificate/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,16 +138,18 @@ const VerifyProof: React.FC = () => {
       if (response.ok) {
         const result = await response.json();
         setVerificationResult(
-          result ? "Proof Verified Successfully" : "Proof Verification Failed"
+          result
+            ? "Certificate Verified Successfully"
+            : "Certificate Verification Failed"
         );
         setVerificationSuccess(result);
       } else {
-        setVerificationResult("Error verifying proof");
+        setVerificationResult("Error verifying certificate");
         setVerificationSuccess(false);
       }
     } catch (error) {
-      console.error("Error verifying proof:", error);
-      setVerificationResult("Error verifying proof");
+      console.error("Error verifying certificate:", error);
+      setVerificationResult("Error verifying certificate");
       setVerificationSuccess(false);
     } finally {
       setIsLoading(false);
@@ -153,37 +158,37 @@ const VerifyProof: React.FC = () => {
 
   return (
     <BackgroundContainer>
-      <ProofContainer>
-        {isLoading && <LoadingOverlay>Verifying Proof...</LoadingOverlay>}
-        <Title>Bank Proof</Title>
-        {proof ? (
+      <CertificateContainer>
+        {isLoading && <LoadingOverlay>Verifying Certificate...</LoadingOverlay>}
+        <Title>Bank Certificate</Title>
+        {certificate ? (
           <div>
-            <ProofItem>
+            <CertificateItem>
               <Label> Customer Information :</Label>
               <JsonDisplay>
-                {JSON.stringify(proof.publicInputs, null, 2)}
+                {JSON.stringify(certificate.publicInputs, null, 2)}
               </JsonDisplay>
-            </ProofItem>
-            <ProofItem>
+            </CertificateItem>
+            <CertificateItem>
               <Label>Public Key:</Label>
               <JsonDisplay>{publicKey}</JsonDisplay>
-            </ProofItem>
+            </CertificateItem>
             {verificationResult && (
-              <ProofItem>
+              <CertificateItem>
                 <Label>Result:</Label>
                 <Result success={verificationSuccess}>
                   {verificationResult}
                 </Result>
-              </ProofItem>
+              </CertificateItem>
             )}
-            <Button onClick={handleVerify}>Verify Proof</Button>
+            <Button onClick={handleVerify}>Verify Certificate</Button>
           </div>
         ) : (
-          <div>No proof stored</div>
+          <div>No certificate stored</div>
         )}
-      </ProofContainer>
+      </CertificateContainer>
     </BackgroundContainer>
   );
 };
 
-export default VerifyProof;
+export default VerifyCertificate;

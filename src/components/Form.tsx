@@ -142,7 +142,7 @@ const Form: React.FC = () => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:4000/proof/create", {
+      const response = await fetch("http://127.0.0.1:4000/certificate/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -153,17 +153,17 @@ const Form: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         await setItemInLocalStorage("publicWitness", JSON.stringify(data));
-        console.log("Proof created successfully:", data);
-        setMessage("Proof created");
-        // Redirect to the "Stored Proof" screen
-        window.location.href = "/stored-proof";
+        console.log("Certificate created successfully:", data);
+        setMessage("Certificate created");
+        // Redirect to the "Stored Certificate" screen
+        window.location.href = "/stored-certificate";
       } else {
-        console.error("Error creating proof:", response.statusText);
-        setMessage("Error creating proof");
+        console.error("Error creating certificate:", response.statusText);
+        setMessage("Error creating certificate");
       }
     } catch (error) {
-      console.error("Error creating proof:", error);
-      setMessage("Error creating proof");
+      console.error("Error creating certificate:", error);
+      setMessage("Error creating certificate");
     } finally {
       setIsLoading(false);
     }
@@ -174,14 +174,14 @@ const Form: React.FC = () => {
       <FormContainer>
         {isLoading && (
           <LoadingOverlay>
-            <Title>Generating Proof</Title>
+            <Title>Generating Certificate</Title>
             <div className="loader"></div>
           </LoadingOverlay>
         )}
         {!isLoading && message && <div>{message}</div>}
         {!isLoading && !message && (
           <div>
-            <Title>BANK PROOF</Title>
+            <Title>BANK CERTIFICATE</Title>
             <FormGroup>
               <Label>Name</Label>
               <Input

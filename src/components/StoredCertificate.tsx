@@ -19,7 +19,7 @@ const Title = styled.h2`
   color: #060640;
 `;
 
-const ProofContainer = styled.div`
+const CertificateContainer = styled.div`
   position: relative;
   background-color: rgba(239, 250, 254, 0.8);
   padding: 40px;
@@ -29,7 +29,7 @@ const ProofContainer = styled.div`
   align-items: center;
 `;
 
-const ProofItem = styled.div`
+const CertificateItem = styled.div`
   margin-bottom: 10px;
 `;
 
@@ -86,16 +86,19 @@ const Button = styled.button`
   }
 `;
 
-const StoredProof: React.FC = () => {
-  const [proof, setProof] = useState<any>(null);
+const StoredCertificate: React.FC = () => {
+  const [certificate, setCertificate] = useState<any>(null);
   const [publicKey, setPublicKey] = useState<any>(null);
 
   useEffect(() => {
     async function fetchData() {
-      const storedProof = await getItemInLocalStorage("publicWitness");
+      const storedCertificate = await getItemInLocalStorage("publicWitness");
       const publicKey = await getItemInLocalStorage("publicKey");
-      if (typeof storedProof === "string" && typeof publicKey === "string") {
-        setProof(JSON.parse(storedProof));
+      if (
+        typeof storedCertificate === "string" &&
+        typeof publicKey === "string"
+      ) {
+        setCertificate(JSON.parse(storedCertificate));
         setPublicKey(publicKey);
       }
     }
@@ -109,24 +112,24 @@ const StoredProof: React.FC = () => {
 
   return (
     <BackgroundContainer>
-      <ProofContainer>
-        <Title>Bank Proof</Title>
-        {proof ? (
+      <CertificateContainer>
+        <Title>Bank Certificate</Title>
+        {certificate ? (
           <div>
-            <ProofItem>
+            <CertificateItem>
               <Label> Customer Information :</Label>
               <JsonDisplay>
-                {JSON.stringify(proof.publicInputs, null, 2)}
+                {JSON.stringify(certificate.publicInputs, null, 2)}
               </JsonDisplay>
-            </ProofItem>
+            </CertificateItem>
             <Button onClick={handleSend}>Send</Button>
           </div>
         ) : (
-          <div>No proof stored</div>
+          <div>No certificate stored</div>
         )}
-      </ProofContainer>
+      </CertificateContainer>
     </BackgroundContainer>
   );
 };
 
-export default StoredProof;
+export default StoredCertificate;
